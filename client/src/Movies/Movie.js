@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Movie = (props) => {
-  const [movie, setMovie] = useState({});
-  console.log(props.match.params.id)
+  const [movie, setMovie] = useState();
  
   useEffect(() => {
     const id = props.match.params.id;
@@ -13,14 +12,13 @@ const Movie = (props) => {
        axios
         .get(`http://localhost:5000/api/movies/${id}`)
         .then(response => {
-          console.log(response.data)
           setMovie(response.data);
         })
         .catch(error => {
           console.error(error);
         });
 
-  },[setMovie]);
+  },[]);
 
 
   // Uncomment this only when you have moved on to the stretch goals
@@ -32,14 +30,7 @@ const Movie = (props) => {
   if (!movie) {
     return <div>Loading movie information...</div>;
   }
-  //const { title, director, metascore, stars } = movie;
-  let stars = []
-  const title = movie.title
-  const director = movie.director
-  const metascore = movie.metascore
-  stars = stars.concat(movie.stars)
-  console.log(title)
-  // console.log(props.id === movie.id)
+  const { title, director, metascore, stars } = movie;
  
   return (
     <div className="save-wrapper">
